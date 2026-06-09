@@ -1,16 +1,17 @@
 import { Routes } from '@angular/router';
 import { OtpLogin } from './shared/otp-login/otp-login';
+import { RoleSelection } from './role-selection/role-selection';
+import { RequestOtp } from './shared/request-otp/request-otp';
 
 export const routes: Routes = [
   { 
     path: '', 
-    redirectTo: 'login', 
-    pathMatch: 'full' 
+    component: RoleSelection 
   },
   { 
     path: 'login', 
-    component: OtpLogin,
-    data: { role: 'customer' }
+    component: RequestOtp,
+    //data: { role: 'customer' }
   },
   { 
     path: 'admin', 
