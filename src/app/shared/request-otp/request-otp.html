@@ -1,14 +1,14 @@
 <div class="login-container">
-  <h2>Login</h2>
-  <form (ngSubmit)="requestOtp(phone)">
-    <div class="form-group">
-      <label for="phone">Phone Number</label>
-      <input id="phone" name="phone" type="tel" [(ngModel)]="phone" 
-        required placeholder="079xxxxxxx" 
-        minlength="10" 
-        maxlength="10" 
+ <h2>Login</h2>
+ <form (ngSubmit)="requestOtp(phone)">
+   <div class="form-group">
+     <label for="phone">Phone Number</label>
+     <input id="phone" name="phone" type="tel" [(ngModel)]="phone"
+        required placeholder="079xxxxxxx"
+        minlength="10"
+        maxlength="10"
         pattern="079[0-9]{7}"/>
-    </div>
-    <button type="submit">Send OTP Code</button>
-  </form>
+   </div>
+   <button type="submit">Send OTP Code</button>
+ </form>
 </div>

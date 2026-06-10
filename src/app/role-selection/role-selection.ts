@@ -20,15 +20,15 @@ export class RoleSelection {
     }
     else if (role === 'customer') {
       this.authService.setRole(RoleEnum.Customer.toString());
-      this.router.navigate(['login']);
+      this.router.navigate(['request-otp']);
     }
     else if (role === 'driver') {
       this.authService.setRole(RoleEnum.Driver.toString());
-      this.router.navigate(['login']);
+      this.router.navigate(['request-otp']);
     }
     else if (role === 'partner') {
       this.authService.setRole(RoleEnum.Partner.toString());
-      this.router.navigate(['login']);
+      this.router.navigate(['request-otp']);
     }
   }
 }

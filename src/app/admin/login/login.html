@@ -1,6 +1,6 @@
 <div class="login-container">
   <h2>Admin Login</h2>
-  <form (ngSubmit)="login()">
+  <form (ngSubmit)="login(email,password)">
     <div class="form-group">
       <label for="email">Email</label>
       <input id="email" name="email" type="email" [(ngModel)]="email" required />
@@ -9,6 +9,8 @@
       <label for="password">Password</label>
       <input id="password" name="password" type="password" [(ngModel)]="password" required />
     </div>
-    <button type="submit">Log In</button>
+    <button type="submit" [disabled]="isSubmitting">
+      {{ isSubmitting ? 'Logging in...' : 'Log In' }}
+    </button>
   </form>
 </div>

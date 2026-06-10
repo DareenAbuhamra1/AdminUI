@@ -9,7 +9,7 @@ export class AuthCrypto {
         return CryptoJS.AES.encrypt(token, SECRET_KEY).toString();
     }
 
-    decrypt(encrypted : string): string{
+    decrypt(encrypted : string): string | null {
         const bytes = CryptoJS.AES.decrypt(encrypted, SECRET_KEY);
         return bytes.toString(CryptoJS.enc.Utf8);
     }
