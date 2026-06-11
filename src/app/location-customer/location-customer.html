@@ -1,0 +1,20 @@
+<h2>Select Your Location</h2>
+
+<google-map
+  height="500px"
+  width="100%"
+  [center]="center"
+  [zoom]="zoom"
+  (mapClick)="moveMarker($event)">
+
+  <map-marker
+    [position]="markerPosition">
+  </map-marker>
+
+</google-map>
+
+<br>
+
+<button (click)="addLocation()">
+  Save Location
+</button>

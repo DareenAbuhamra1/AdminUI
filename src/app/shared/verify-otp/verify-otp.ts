@@ -21,7 +21,8 @@ export class VerifyOtp {
     private http: HttpClient,
     private authService: AuthService,
     private router: Router,
-    private snackBar: MatSnackBar) { }
+    private snackBar: MatSnackBar
+  ) { }
 
 
   otpCode: string = '';
@@ -60,7 +61,7 @@ export class VerifyOtp {
                 }
                 if (err.status === 404) {
                   this.snackBar.open("User not registered", 'Close', { duration: 3000 });
-                  this.router.navigate(['register-customer'])
+                  this.router.navigate(['register-customer'],{queryParams:{phone:this.phone}})
                 }
               }
             })

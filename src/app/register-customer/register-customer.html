@@ -1,1 +1,28 @@
-<p>register-customer works!</p>
+<div class="register-container">
+  <h2>Register Customer</h2>
+  <form (ngSubmit)="registerCustomer()">
+    <div class="form-group">
+      <label for="firstName">First Name</label>
+      <input id="firstName" name="firstName" type="text" [(ngModel)]="customer.FirstName" required />
+    </div>
+    <div class="form-group">
+      <label for="lastName">Last Name</label>
+      <input id="lastName" name="lastName" type="text" [(ngModel)]="customer.LastName" required />
+    </div>
+    <div class="form-group">
+      <label for="gender">Gender</label>
+      <select id="gender" name="gender" [(ngModel)]="customer.Gender" required>
+        <option value=0>Undefined</option>
+        <option value=1>Male</option>
+        <option value=2>Female</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="dob">Date of Birth</label>
+      <input id="dob" name="dob" type="date" [(ngModel)]="customer.DateOfBirth" required />
+    </div>
+    <button type="submit" [disabled]="isSubmitting">
+      {{ isSubmitting ? 'Registering...' : 'Register Customer' }}
+    </button>
+  </form>
+</div>

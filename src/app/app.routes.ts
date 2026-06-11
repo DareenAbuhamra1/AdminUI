@@ -4,6 +4,7 @@ import { RoleSelection } from './role-selection/role-selection';
 import { RequestOtp } from './shared/request-otp/request-otp';
 import { VerifyOtp } from './shared/verify-otp/verify-otp';
 import { RegisterCustomer } from './register-customer/register-customer';
+import { LocationCustomer } from './location-customer/location-customer';
 
 export const routes: Routes = [
   { 
@@ -31,5 +32,9 @@ export const routes: Routes = [
   {
     path : 'customer',
     loadChildren: () => import('./customer/customer-module').then(m => m.CustomerModule)
+  },
+  {
+    path : 'location',
+    component : LocationCustomer 
   }
 ];
