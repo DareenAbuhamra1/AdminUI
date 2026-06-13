@@ -8,7 +8,7 @@ import {
   HttpErrorResponse
 } from '@angular/common/http';
 import { catchError, Observable, throwError } from 'rxjs';
-import { error } from 'console';
+//import { error } from 'console';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 @Injectable()
@@ -50,8 +50,9 @@ export class AuthInterceptor implements HttpInterceptor {
           Authorization: `Bearer ${token}`
         }
       }) : req;
+    return next.handle(modifiedReq)
     // HANDLE GLOBAL ERRORS HERE AND LET SPECIFIC ERRORS BE CATCHED IN COMPONENTS
-
+/*
     return next.handle(modifiedReq).pipe(
 
       catchError((error: HttpErrorResponse) => {
@@ -71,6 +72,6 @@ export class AuthInterceptor implements HttpInterceptor {
         return throwError(() => error);
       })
     )
-
+*/
   }
 }

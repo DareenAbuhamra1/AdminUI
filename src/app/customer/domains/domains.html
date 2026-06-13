@@ -1,15 +1,14 @@
-<div *ngIf="isLoading; else content" class="loading-msg">
-  <p>Loading domains...</p>
-</div>
-
-<ng-template #content>
-  <div *ngIf="domains && domains.length > 0; else empty" class="domains-container">
-    <div class="domain-card" *ngFor="let d of domains" (click)="selectDomain(d.id)">
-      {{ d.name }}
-    </div>
+<div class="domains-container">
+  <h1>MyThings</h1>
+  <div class="domains-grid">
+    @for (d of domains; track d.id) {
+      <div class="domain-card" (click)="selectDomain(d.id)">
+        <h3>{{ d.name }}</h3>
+      </div>
+    } @empty {
+      <div class="empty-state">
+        <p>No items found</p>
+      </div>
+    }
   </div>
-</ng-template>
-
-<ng-template #empty>
-  <p class="empty-msg">No domains available to display.</p>
-</ng-template>
+</div>

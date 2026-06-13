@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { domainInfoDto } from '../../shared/models/domainInfoDto';
 import { environment } from '../../shared/environments/environment';
@@ -13,9 +13,11 @@ import { CommonModule } from '@angular/common';
 })
 
 export class Domains implements OnInit{
+  
   constructor(
     private http:HttpClient,
     private snackBar:MatSnackBar,
+    private cdr: ChangeDetectorRef
   ){}
   
   domains : domainInfoDto[] = [];
@@ -25,22 +27,23 @@ export class Domains implements OnInit{
     this.getDomains();
   }
   getDomains(){
-    debugger
-    this.isLoading = true;
-    this.http.get<domainInfoDto[]>(`${environment.apiUrls.customer}/Domain/domains`).subscribe({
+    this.http.get<domainInfoDto[]>(`${environment.apiUrls.customer}/Domain/domains`)
+    .subscribe({
       next : (res)=>{
-        this.domains = res;
-        this.isLoading = false;
+        this.domains= res;
+        this.cdr.detectChanges();
       },
       error: (err)=>{
         this.isLoading = false;
         if(err.status == 404){
           this.snackBar.open("Domains not found", 'Close',{duration:3000});
+        } else {
+          this.snackBar.open(`Error: ${err.message}`, 'Close',{duration:3000});
         }
       }
     })
   }
   selectDomain(d:number){
-    
+    console.log(d);
   }
 }
