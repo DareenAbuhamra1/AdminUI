@@ -20,25 +20,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    /*
     let token: string | null = null;
-
-    if (isPlatformBrowser(this.platformId)) {
-      token = localStorage.getItem('jwt');
-    }
-
-    if (token) {
-      const clonedReq = req.clone({
-        setHeaders: {
-          Authorization: `Bearer ${token}`
-        }
-      });
-
-      return next.handle(clonedReq);
-    }
-    */
-    let token: string | null = null;
-
 
     if (isPlatformBrowser(this.platformId)) {
       token = localStorage.getItem('jwt');
@@ -50,19 +32,19 @@ export class AuthInterceptor implements HttpInterceptor {
           Authorization: `Bearer ${token}`
         }
       }) : req;
-    return next.handle(modifiedReq)
+
+    //return next.handle(modifiedReq)
     // HANDLE GLOBAL ERRORS HERE AND LET SPECIFIC ERRORS BE CATCHED IN COMPONENTS
-/*
     return next.handle(modifiedReq).pipe(
 
       catchError((error: HttpErrorResponse) => {
         switch (error.status) {
           case 401:
-            //this.router.navigate(['']);
+            this.router.navigate(['']);
             this.snackBar.open('You are unauthorized, please choose you role and login', 'Close', { duration: 3000 });
             break;
           case 403:
-            //this.router.navigate(['']);
+            this.router.navigate(['']);
             this.snackBar.open('Forbidden operation', 'Close', { duration: 3000 });
             break;
           case 500:
@@ -72,6 +54,6 @@ export class AuthInterceptor implements HttpInterceptor {
         return throwError(() => error);
       })
     )
-*/
+
   }
 }

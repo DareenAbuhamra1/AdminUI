@@ -27,7 +27,6 @@ export class Login {
   ) {}
 
   login(email: string, password: string): void {
-    debugger
     this.isSubmitting = true;
     const dto : adminLoginDto = {
       email:email,
