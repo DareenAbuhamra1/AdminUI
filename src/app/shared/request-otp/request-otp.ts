@@ -24,7 +24,6 @@ export class RequestOtp {
   }
   
   requestOtp(phone:string): void {
-    debugger
     const role = this.authService.getRole();
     if(role){
       switch (role){

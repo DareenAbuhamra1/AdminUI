@@ -1,1 +1,15 @@
-<p>domains works!</p>
+<div *ngIf="isLoading; else content" class="loading-msg">
+  <p>Loading domains...</p>
+</div>
+
+<ng-template #content>
+  <div *ngIf="domains && domains.length > 0; else empty" class="domains-container">
+    <div class="domain-card" *ngFor="let d of domains" (click)="selectDomain(d.id)">
+      {{ d.name }}
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #empty>
+  <p class="empty-msg">No domains available to display.</p>
+</ng-template>
