@@ -1,0 +1,57 @@
+<div class="cart-container">
+    @if (isLoading()) {
+        <p class="loading-state">Loading your cart...</p>
+    } @else {
+        @if (cartData) {
+            <div class="cart-header">
+                <h2>Your Order</h2>
+                <p class="partner-name">From: {{ cartData.partnerName }}</p>
+            </div>
+
+            <div class="cart-items">
+                @for (line of cartData.orderLines; track line.productId) {
+                    <div class="cart-item">
+                        <div class="item-details">
+                            <h3>{{ line.productName }}</h3>
+                            <p class="qty">Quantity: {{ line.quantity }}</p>
+
+                            @if (line.orderLineOptions?.length) {
+                                <ul class="item-options">
+                                    @for (opt of line.orderLineOptions; track opt.productOptionId) {
+                                        <li>{{ opt.productOption }} (x{{ opt.quantity }})</li>
+                                    }
+                                </ul>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <div class="cart-summary">
+                <div class="summary-row">
+                    <span>Subtotal:</span>
+                    <span>{{ cartData.subTotal }} JD</span>
+                </div>
+                <div class="summary-row">
+                    <span>Delivery Fee:</span>
+                    <span>{{ cartData.deliveryFees }} JD</span>
+                </div>
+                <div class="summary-row total">
+                    <span>Total Price:</span>
+                    <span>{{ cartData.totalPrice }} JD</span>
+                </div>
+            </div>
+
+            <div class="cart-action-buttons">
+                <button class="checkout-btn" (click)="checkout()">Proceed to Checkout</button>
+                <button class="delete-cart-btn" (click)="deleteCart()">Delete Cart</button>
+            </div>
+        } @else {
+            <div class="empty-cart">
+                <h2>Your cart is empty</h2>
+                <p>Looks like you haven't added anything yet.</p>
+                <button class="back-btn" (click)="goBack()">Browse Stores</button>
+            </div>
+        }
+    }
+</div>

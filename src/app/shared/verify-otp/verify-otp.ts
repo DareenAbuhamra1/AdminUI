@@ -9,6 +9,7 @@ import { authResponseDto } from '../models/authResponseDto';
 import { AuthService } from '../auth-service/auth-service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { LocationDto } from '../models/LocationDto';
 
 @Component({
   selector: 'app-verify-otp',
@@ -51,6 +52,14 @@ export class VerifyOtp {
               next: (res) => {
                 if (res.isSuccess && res.isRegistered && res.isActive){
                   this.authService.setToken(res.token);
+                  if(res.userId != null)
+                    localStorage.setItem("customerId", res.userId.toString());
+                  this.http.get<LocationDto>(`${environment.apiUrls.customer}/Location/default/${res.userId}`).subscribe({
+                    next :(res) =>{
+                      if(res.locationId != null)
+                        localStorage.setItem("loc",res.locationId.toString());
+                    }
+                  });
                   this.router.navigate(['customer/domains']);
                 }
               },

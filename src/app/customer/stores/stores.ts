@@ -25,9 +25,9 @@ export class Stores {
   ){}
   ngOnInit(){
     this.route.queryParams.subscribe(params =>{
-      this.domainId = params['domainId'];
+      this.domainId = Number(params['domainId']) || 0;
+      this.getStoresForDomain();
     })
-    this.getStoresForDomain()
   }
   getStoresForDomain(){
     this.isLoading.set(true);
@@ -47,6 +47,6 @@ export class Stores {
     )
   }
   selectStore(s:number){
-    this.router.navigate(['customer/products'],{queryParams:{partnerId:s}});
+    this.router.navigate(['customer/products'],{queryParams:{partnerId:s, domainId:this.domainId}});
   }
 }

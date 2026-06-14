@@ -1,25 +1,60 @@
 <div class="products-container">
-    <h1>My Things</h1>
-    @if (isLoading()) {
-    <p>Loading products...</p>
-    }
-    @else {
-    <div class="products-grid">
-        @for ( p of products ; track p.id) {
-        <div class="product-card" (click)="selectProduct(p.id)">
-            <h3 class="product-name">{{ p.name }}</h3>
-
-            <p class="product-desc">{{ p.description }}</p>
-
-            <div class="product-footer">
-                <span class="product-price">{{ p.price }} JD</span>
-            </div>
-        </div>
-        } @empty {
-        <div class="empty-state">
-            <p>No items found</p>
-        </div>
-        }
+    
+    <div class="header-actions">
+        <button class="view-cart-btn" (click)="goToCart()">🛒 View Cart</button>
     </div>
+
+    @if (isLoading()) {
+        <p>Loading products...</p>
+    }
+    @else{
+        
+        @if (selectedProduct) {
+            <div class="selected-product">
+                
+                <button class = "back-btn" (click)="clearSelection()">
+                    Back
+                </button>
+
+                <h2>{{ selectedProduct.name }}</h2>
+
+                <p> {{ selectedProduct.price }} JD</p>
+
+                <app-product-options 
+                    [productId]="selectedProduct.id" 
+                    [productName]="selectedProduct.name"
+                    [basePrice]="selectedProduct.price">
+                </app-product-options>
+            </div>
+
+            <div class="cart-actions">
+                <div class="quantity-selector">
+                    <button class="qty-btn" (click)="decreaseQuantity()" [disabled]="quantity <= 1">-</button>
+                    <span class="qty-display">{{ quantity }}</span>
+                    <button class="qty-btn" (click)="increaseQuantity()">+</button>
+                </div>
+                <button class='add-to-cart' (click)="AddToCart()" [disabled]="!productOptionsComponent?.isValid">Add to cart </button>
+            </div>
+        }
+        @else{
+            <div class="products-grid">
+                @for ( p of products ; track p.id) {
+                    <div class="product-card" (click)="selectProduct(p)">
+                        <h3 class="product-name">{{ p.name }}</h3>
+
+                        <p class="product-desc">{{ p.description }}</p>
+
+                        <div class="product-footer">
+                            <span class="product-price">{{ p.price }} JD</span>
+                        </div>
+                    </div>
+                } 
+                @empty {
+                    <div class="empty-state">
+                        <p>No items found</p>
+                    </div>
+                }
+            </div>
+        }
     }
 </div>

@@ -1,6 +1,40 @@
-<p>product-options works!</p>
-@if(isLoading()){
-    <p>Product-options loading ...</p>
-}@else{
- <pre>{{ productOptions | json }}</pre>
-}
+<div class="product-options-container">
+    @if(isLoading()){
+        <p>Product-options loading ...</p>
+    }
+    @else{
+        @for (po of productOptions; track po.optionGroupId) {
+            <div class="option-group-card">
+                <div class="option-group-header">
+                    <h3>
+                        {{ po.title }}
+
+                        <span class="badge" [class.required]="po.isRequired" [class.optional]="!po.isRequired">
+                            {{ po.isRequired ? 'Required' : 'Optional' }}
+                        </span>
+                    </h3>
+                </div>
+                <p class="selection-info">Select up to {{po.maxSelection}} (Min: {{po.minSelection}})</p>
+
+                <ul class="options-list">
+                    @for (opt of po.options; track opt.productOptionId) {
+                    <li class="option-item">
+                        <label class="option-label">
+
+                            <input type="checkbox" [checked]="isSelected(opt.productOptionId)"
+                                (change)="toggleOption(opt, po)" />
+
+                            <span class="option-name">{{ opt.option }}</span>
+
+                        </label>
+
+                        <span class="option-price"> +{{ opt.price }} JD</span>
+                    </li>
+                    } @empty {
+                    <li>No options available.</li>
+                    }
+                </ul>
+            </div>
+        }
+    }
+</div>

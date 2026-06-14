@@ -1,0 +1,21 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 10px;
+  border-radius: 999px; /* pill shape */
+  font-size: 12px;
+  font-weight: 600;
+  color: white;
+  margin-left: 8px;
+}
+
+/* REQUIRED → red */
+.badge.required {
+  background-color: #e6776a;
+}
+
+/* OPTIONAL → green */
+.badge.optional {
+  background-color: #66d694;
+}

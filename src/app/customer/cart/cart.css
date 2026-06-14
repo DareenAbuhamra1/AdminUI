@@ -1,0 +1,125 @@
+.cart-container {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 24px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.loading-state {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.cart-header {
+  border-bottom: 1px solid #eeeeee;
+  padding-bottom: 16px;
+  margin-bottom: 24px;
+}
+
+.cart-header h2 {
+  margin: 0 0 8px;
+  color: #333333;
+  font-size: 1.8rem;
+}
+
+.partner-name {
+  margin: 0;
+  color: #666666;
+  font-weight: 500;
+}
+
+.cart-items {
+  margin-bottom: 24px;
+}
+
+.cart-item {
+  padding: 16px;
+  border: 1px solid #eeeeee;
+  border-radius: 8px;
+  background-color: #fafafa;
+}
+
+.item-details h3 {
+  margin: 0 0 8px;
+  color: #222222;
+  font-size: 1.2rem;
+}
+
+.qty {
+  margin: 0 0 12px;
+  color: #555555;
+  font-weight: 600;
+}
+
+.item-options {
+  margin: 0;
+  padding-left: 20px;
+  color: #666666;
+}
+
+.cart-summary {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 24px;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  color: #555555;
+}
+
+.summary-row.total {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 2px solid #dddddd;
+  font-weight: bold;
+  font-size: 1.4rem;
+  color: #222222;
+}
+
+.cart-action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.checkout-btn {
+  width: 100%;
+  padding: 16px;
+  background-color: #2e7d32;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.checkout-btn:hover {
+  background-color: #1b5e20;
+}
+
+.delete-cart-btn {
+  width: 100%;
+  padding: 16px;
+  background-color: #ffffff;
+  color: #d32f2f;
+  border: 2px solid #ffebee;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.delete-cart-btn:hover {
+  background-color: #ffebee;
+  border-color: #d32f2f;
+}
