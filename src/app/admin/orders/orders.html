@@ -1,0 +1,39 @@
+<div class="orders-container">
+  <h2>All Orders</h2>
+  <mat-accordion>
+    <!-- Opening the panel triggers getOrders() -->
+    <mat-expansion-panel (opened)="getOrders()">
+      <mat-expansion-panel-header>
+        <mat-panel-title style="font-weight: bold; color: #0052cc;">
+          GET /orders
+        </mat-panel-title>
+        <mat-panel-description>
+          Click to fetch and view orders data
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <div class="panel-content" style="margin-top: 15px;">
+        @if (isLoading()) {
+          <p>Loading orders...</p>
+        } @else {
+          
+          <!-- Check if we have orders -->
+          @if (orders.length > 0) {
+            <div class="orders-list" style="display: grid; gap: 16px;">
+              
+              <!-- Loop through the orders signal -->
+              @for (order of orders; track order.id || $index) {
+                <div style="padding: 16px; border: 1px solid #e0e0e0; border-radius: 8px; background-color: #fafafa;">
+                  <pre style="margin: 0; white-space: pre-wrap; font-size: 13px; color: #333;">{{ order | json }}</pre>
+                </div>
+              }
+            </div>
+            
+          } @else {
+            <p>No orders found.</p>
+          }
+        }
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

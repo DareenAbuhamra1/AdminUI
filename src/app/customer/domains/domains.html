@@ -1,14 +1,19 @@
 <div class="domains-container">
-  <h1>MyThings</h1>
-  <div class="domains-grid">
-    @for (d of domains(); track d.id) {
-      <div class="domain-card" (click)="selectDomain(d.id)">
-        <h3>{{ d.name }}</h3>
+  <h1>My Things</h1>
+  @if (isLoading()) {
+    <p>Loading orders...</p>
+  } 
+  @else {
+    <div class="domains-grid">
+        @for (d of domains; track d.id) {
+          <div class="domain-card" (click)="selectDomain(d.id)">
+            <h3>{{ d.name }}</h3>
+          </div>
+        } @empty {
+          <div class="empty-state">
+            <p>No items found</p>
+          </div>
+        }
       </div>
-    } @empty {
-      <div class="empty-state">
-        <p>No items found</p>
-      </div>
-    }
-  </div>
+  }
 </div>

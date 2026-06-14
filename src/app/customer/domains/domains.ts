@@ -4,6 +4,7 @@ import { domainInfoDto } from '../../shared/models/domainInfoDto';
 import { environment } from '../../shared/environments/environment';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-domains',
@@ -17,10 +18,13 @@ export class Domains implements OnInit{
   
   constructor(
     private http:HttpClient,
-    private snackBar:MatSnackBar
-  ){}
-  
-  domains = signal<domainInfoDto[]>([]);
+    private snackBar:MatSnackBar,
+    private router:Router
+  ){
+    
+  }
+
+  domains : domainInfoDto[] =[];
   isLoading = signal<boolean>(true);
 
   ngOnInit(){
@@ -30,7 +34,7 @@ export class Domains implements OnInit{
     this.http.get<domainInfoDto[]>(`${environment.apiUrls.customer}/Domain/domains`)
     .subscribe({
       next : (res)=>{
-        this.domains.set(res);
+        this.domains = res;
         this.isLoading.set(false);
       },
       error: (err)=>{
@@ -44,6 +48,7 @@ export class Domains implements OnInit{
     })
   }
   selectDomain(d:number){
-    console.log(d);
+    console.log(`Selected domain Id: ${d}`);
+    this.router.navigate(['customer/stores'],{queryParams :{domainId:d}});
   }
 }

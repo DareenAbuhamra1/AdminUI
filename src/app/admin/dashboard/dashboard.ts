@@ -6,4 +6,14 @@ import { Component } from '@angular/core';
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })
-export class Dashboard {}
+export class Dashboard {
+  activeSection: 'drivers' | 'orders' | null = null;
+  
+  showDrivers() {
+    this.activeSection = 'drivers';
+  }
+
+  showOrders() {
+    this.activeSection = 'orders';
+  }
+}

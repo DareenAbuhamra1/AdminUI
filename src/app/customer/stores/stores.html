@@ -1,1 +1,42 @@
-<p>stores works!</p>
+<div class="stores-container">
+  <h2>Domain Stores</h2>
+
+  <!-- Check if the data is currently loading -->
+  @if (isLoading()) {
+    <p>Loading stores...</p>
+  } @else {
+    <div class="stores-grid">
+      
+      <!-- Loop through the stores, fallback to empty state if array is empty -->
+      @for (store of stores; track store.id || $index) {
+        
+        <!-- 
+          Apply the 'disabled' CSS class if the store is not available.
+          Only trigger the selectStore() method if it IS available.
+        -->
+        <div 
+          class="store-card" 
+          [class.disabled]="!store.isAvailable"
+          (click)="store.isAvailable ? selectStore(store.id) : null"
+        >
+          <div>
+            <h3>{{ store.name }}</h3>
+            
+            <!-- Optional: Show a small label if it's unavailable -->
+            @if (!store.isAvailable) {
+              <p style="margin-top: 8px; font-size: 0.85rem; color: #a0a0a0; margin-bottom: 0;">
+                Currently unavailable
+              </p>
+            }
+          </div>
+        </div>
+
+      } @empty {
+        <div class="empty-state">
+          <p>No stores found for this domain.</p>
+        </div>
+      }
+
+    </div>
+  }
+</div>
