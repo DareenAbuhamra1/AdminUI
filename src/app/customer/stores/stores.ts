@@ -1,6 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { storesCustomerDto } from '../../shared/models/storesCustomerDto';
-import { Router } from '@angular/router';
+import { Route, Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../shared/environments/environment';
@@ -20,7 +20,8 @@ export class Stores {
   constructor(
     private route:ActivatedRoute,
     private http:HttpClient,
-    private snackBar:MatSnackBar
+    private snackBar:MatSnackBar,
+    private router: Router,
   ){}
   ngOnInit(){
     this.route.queryParams.subscribe(params =>{
@@ -45,5 +46,7 @@ export class Stores {
     }
     )
   }
-  selectStore(s:number){}
+  selectStore(s:number){
+    this.router.navigate(['customer/products'],{queryParams:{partnerId:s}});
+  }
 }

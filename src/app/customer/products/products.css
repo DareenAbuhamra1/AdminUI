@@ -1,0 +1,85 @@
+.products-container {
+  padding: 20px;
+}
+
+.products-grid {
+  display: grid;
+  /* Automatically wraps items to the next row, making it responsive */
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.product-card {
+  padding: 16px;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  background-color: #ffffff;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+
+  /* IMPORTANT FIX */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  gap: 8px;
+}
+
+/* Adds a pop-up effect when you hover over the clickable cards */
+.product-card:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  transform: translateY(-4px);
+  border-color: #c9c9c9;
+}
+
+
+.product-card h3 {
+  margin: 0;
+  color: #333333;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.empty-state {
+  grid-column: 1 / -1; /* spans the entire width */
+  padding: 40px;
+  text-align: center;
+  color: #666666;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  border: 2px dashed #cccccc;
+}
+
+.product-name {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #222;
+}
+
+.product-desc {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #666;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.product-footer {
+  margin-top: auto;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.product-price {
+  font-weight: 700;
+  color: #2e7d32;
+  background: #e8f5e9;
+  padding: 4px 8px;
+  border-radius: 6px;
+}

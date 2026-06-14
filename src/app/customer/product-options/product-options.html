@@ -1,0 +1,6 @@
+<p>product-options works!</p>
+@if(isLoading()){
+    <p>Product-options loading ...</p>
+}@else{
+ <pre>{{ productOptions | json }}</pre>
+}
