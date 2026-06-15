@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { PlacedOrders } from '../placed-orders/placed-orders';
 import { PreparingOrders } from '../preparing-orders/preparing-orders';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,6 +10,9 @@ import { PreparingOrders } from '../preparing-orders/preparing-orders';
   styleUrl: './dashboard.css',
 })
 export class Dashboard {
+  constructor(
+    private router: Router
+  ){}
   @ViewChild(PreparingOrders) preparingOrders!: PreparingOrders;
   @ViewChild(PlacedOrders) placedOrders!: PlacedOrders;
 
@@ -27,5 +31,8 @@ export class Dashboard {
         this.placedOrders.fetchOrders();
       }, 500);
     }
+  }
+  goToOrderHistory(){
+    this.router.navigate(['partner/order-history']);
   }
 }
