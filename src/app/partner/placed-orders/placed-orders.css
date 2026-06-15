@@ -1,0 +1,147 @@
+
+header h2 {
+  margin-bottom: 24px;
+  color: #333333;
+}
+
+.loading, .empty-state {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #666666;
+  margin-top: 40px;
+  padding: 40px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+.orders-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.order-card {
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  display: flex;
+  flex-direction: column;
+}
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  border-bottom: 1px solid #f0f0f0;
+  padding-bottom: 12px;
+}
+
+.order-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #222222;
+}
+
+.status {
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  background-color: #e3f2fd;
+  color: #1565c0;
+}
+
+.order-details {
+  flex-grow: 1;
+}
+
+.order-summary-prices {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  background: #f9f9f9;
+  padding: 10px 12px;
+  border-radius: 6px;
+  color: #333333;
+}
+
+.order-summary-prices p {
+  margin: 0;
+}
+
+.order-items-section h4 {
+  margin: 0 0 12px 0;
+  font-size: 1.05rem;
+  border-bottom: 1px solid #eeeeee;
+  padding-bottom: 8px;
+  color: #444444;
+}
+
+.order-items-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.order-items-list > li {
+  margin-bottom: 12px;
+}
+
+.item-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  color: #222222;
+  line-height: 1.4;
+}
+
+.item-options-list {
+  list-style: none;
+  padding: 0 0 0 20px;
+  margin: 4px 0 0 0;
+  font-size: 0.9rem;
+}
+
+.item-options-list .item-row {
+  color: #666666;
+}
+
+.order-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.btn-accept, .btn-decline {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-accept {
+  background-color: #2e7d32;
+  color: white;
+}
+
+.btn-accept:hover {
+  background-color: #1b5e20;
+}
+
+.btn-decline {
+  background-color: #ffffff;
+  color: #d32f2f;
+  border: 2px solid #ffebee;
+}
+
+.btn-decline:hover {
+  background-color: #ffebee;
+  border-color: #d32f2f;
+}

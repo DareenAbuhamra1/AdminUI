@@ -36,5 +36,9 @@ export const routes: Routes = [
   {
     path : 'location',
     component : LocationCustomer 
-  }
+  },
+  {
+    path : 'partner',
+    loadChildren: () => import('./partner/partner-module').then(m => m.PartnerModule)
+  },
 ];

@@ -1,0 +1,57 @@
+@if (isLoading()) {
+    <p class="loading">Loading orders...</p>
+  } @else {
+    @if (orders && orders.length > 0) {
+      <div class="orders-grid">
+        @for (order of orders; track order.orderId) {
+          <div class="order-card">
+            <div class="order-header">
+              <h3>Order #{{ order.orderId }}</h3>
+              <span class="status badge-{{ order.status }}">{{ getStatusName(order.status) }}</span>
+            </div>
+            
+            <div class="order-details">
+              <div class="order-summary-prices">
+                <p><strong>Subtotal:</strong> {{ order.subTotal }} JD</p>
+                <p><strong>Total:</strong> {{ order.totalPrice }} JD</p>
+              </div>
+              
+              <div class="order-items-section">
+                <h4>Order Items</h4>
+                <ul class="order-items-list">
+                  @for (item of order.orderItems; track item.orderItemId) {
+                    <li>
+                      <div class="item-row">
+                        <span class="item-name">{{ item.quantity }}x {{ item.orderItemName }}</span>
+                        <span class="item-price">{{ item.orderItemPrice }} JD</span>
+                      </div>
+                      @if (item.orderItemOptions && item.orderItemOptions.length > 0) {
+                        <ul class="item-options-list">
+                          @for (opt of item.orderItemOptions; track opt.itemOptionId) {
+                            <li class="item-row">
+                              <span class="opt-name">+ {{ opt.itemOptionName }} (x{{ opt.itemOptionQuantity }})</span>
+                              <span class="opt-price">{{ opt.itemOptionPrice }} JD</span>
+                            </li>
+                          }
+                        </ul>
+                      }
+                    </li>
+                  }
+                </ul>
+              </div>
+            </div>
+            @if (order.status === 2) { 
+              <div class="order-actions">
+                <button class="btn-accept" (click)="acceptOrder(order.orderId)">Accept</button>
+                <button class="btn-decline" (click)="declineOrder(order.orderId)">Decline</button>
+              </div>
+            }
+          </div>
+        }
+      </div>
+    } @else {
+      <div class="empty-state">
+        <p>No orders found right now. Wait for customers to place new orders!</p>
+      </div>
+    }
+  }

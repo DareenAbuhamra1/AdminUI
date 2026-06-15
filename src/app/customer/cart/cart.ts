@@ -34,7 +34,7 @@ export class Cart implements OnInit {
       return;
     }
 
-    // TODO: Update this URL to match your exact backend endpoint for fetching the cart
+
     this.http.get<any>(`${environment.apiUrls.customer}/Order/cart/${customerId}`).subscribe({
       next: (res) => {
         if (res && res.data) {
@@ -81,6 +81,7 @@ export class Cart implements OnInit {
       next :() =>{
         this.snackBar.open("Order placed successfully", "Close", { duration: 3000 });
         this.isLoading.set(false);
+        this.router.navigate(['customer/track-orders'])
       },
       error: (err) => {
         this.snackBar.open("Failed to delete cart", "Close", { duration: 3000 });

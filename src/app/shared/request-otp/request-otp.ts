@@ -50,6 +50,15 @@ export class RequestOtp {
           });
           break;
         case RoleEnum.Partner.toString():
+          this.http.post<OtpResponseDto>(`${environment.apiUrls.partner}/Partner/auth/request-otp`,JSON.stringify(phone),{ headers: { 'Content-Type': 'application/json' } })
+          .subscribe({
+            next : (res)=>{
+              console.log('Login response',res);
+              if(res.otp)
+                this.otpCode = res.otp;
+                this.router.navigate(['verify-otp'],{queryParams: {otpCode:this.otpCode, phone:phone, role :role}});
+            }
+          });
           break;
         default:
           break;
