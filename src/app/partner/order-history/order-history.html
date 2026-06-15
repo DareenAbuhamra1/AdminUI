@@ -1,1 +1,82 @@
-<p>order-history works!</p>
+<div class="order-history-container">
+  <header>
+    <h2>Order History</h2>
+    <div class="header-actions">
+      <button class="nav-btn" (click)="goBack()">Back to Dashboard</button>
+    </div>
+  </header>
+
+  <!-- Filters Section -->
+  <div class="filters-card">
+    <div class="filter-group">
+      <label for="search">Search</label>
+      <input id="search" type="text" [(ngModel)]="query.search" placeholder="Search orders..." />
+    </div>
+
+    <div class="filter-group">
+      <label for="status">Status</label>
+      <select id="status" [(ngModel)]="query.status">
+        <option [ngValue]="null">All Statuses</option>
+        <option [ngValue]="2">Placed</option>
+        <option [ngValue]="3">Accepted</option>
+        <option [ngValue]="4">Preparing</option>
+        <option [ngValue]="5">Ready For Pickup</option>
+        <option [ngValue]="7">Completed</option>
+        <option [ngValue]="8">Declined</option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label for="from">From Date</label>
+      <input id="from" type="date" [(ngModel)]="query.from" />
+    </div>
+
+    <div class="filter-group">
+      <label for="to">To Date</label>
+      <input id="to" type="date" [(ngModel)]="query.to" />
+    </div>
+
+    <div class="filter-actions">
+      <button class="btn-primary" (click)="applyFilters()">Search</button>
+      <button class="btn-secondary" (click)="resetFilters()">Reset</button>
+    </div>
+  </div>
+
+  <!-- Orders Grid -->
+  @if (isLoading()) {
+    <p class="loading">Loading orders...</p>
+  } @else {
+    @if (orders && orders.length > 0) {
+      <div class="orders-grid">
+        @for (order of orders; track order.orderId) {
+          <div class="order-card">
+            <div class="order-header">
+              <h3>Order #{{ order.orderId }}</h3>
+              <span class="status badge-{{ order.status }}">{{ getStatusName(order.status) }}</span>
+            </div>
+            
+            <div class="order-details">
+              <div class="order-summary-prices">
+                <p><strong>Subtotal:</strong> {{ order.subTotal }} JD</p>
+                <p><strong>Service Fee:</strong> {{ order.serviceFee }} JD</p>
+                <p><strong>Delivery Fee:</strong> {{ order.deliveryFees }} JD</p>
+                <p><strong>Total Payment:</strong> {{ order.totalPayment }} JD</p>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+
+      <!-- Pagination Controls -->
+      <div class="pagination">
+        <button class="btn-page" [disabled]="query.page <= 1" (click)="changePage(query.page - 1)">Previous</button>
+        <span class="page-info">Page {{ query.page }} of {{ totalPages }}</span>
+        <button class="btn-page" [disabled]="query.page >= totalPages" (click)="changePage(query.page + 1)">Next</button>
+      </div>
+    } @else {
+      <div class="empty-state">
+        <p>No orders match your selected filters.</p>
+      </div>
+    }
+  }
+</div>
