@@ -60,7 +60,7 @@ export class Cart implements OnInit {
     if (!customerId) return;
 
     this.isLoading.set(true);
-    // TODO: Update this URL to match your exact backend endpoint for deleting a cart
+
     this.http.delete(`${environment.apiUrls.customer}/Order/cart/${this.cartData.orderId}`).subscribe({
       next: () => {
         this.snackBar.open("Cart deleted successfully", "Close", { duration: 3000 });
@@ -75,8 +75,18 @@ export class Cart implements OnInit {
   }
 
   checkout() {
-    // TODO: Navigate to checkout page or call checkout API
     this.snackBar.open("Proceeding to checkout...", "Close", { duration: 3000 });
+    
+    this.http.patch(`${environment.apiUrls.customer}/Order/place-order/${this.cartData.orderId}`,null).subscribe({
+      next :() =>{
+        this.snackBar.open("Order placed successfully", "Close", { duration: 3000 });
+        this.isLoading.set(false);
+      },
+      error: (err) => {
+        this.snackBar.open("Failed to delete cart", "Close", { duration: 3000 });
+        this.isLoading.set(false);
+      }
+    })
   }
 
   goBack() {

@@ -100,7 +100,7 @@ export class Products {
       }
     };
 
-    // TODO: Update the URL to your actual AddToCart endpoint if it differs
+  
     this.http.post(`${environment.apiUrls.customer}/Order/add-order-cart`, cartPayload).subscribe({
       next: (res) => {
         this.snackBar.open("Item added to cart successfully!", 'Close', {duration: 3000});
@@ -114,5 +114,9 @@ export class Products {
 
   goToCart(){
     this.router.navigate(['customer/cart']);
+  }
+
+  goToTrackOrders() {
+    this.router.navigate(['customer/track-orders']);
   }
 }

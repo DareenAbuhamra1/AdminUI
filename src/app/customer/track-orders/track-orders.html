@@ -1,0 +1,27 @@
+<div class="track-orders-container">
+  <div class="page-header">
+    <h2>My Orders</h2>
+  </div>
+
+  @if (isLoading()) {
+    <p class="loading-state">Loading your orders...</p>
+  } @else {
+    @if (orders && orders.length > 0) {
+      <div class="orders-list">
+        @for (order of orders; track order.orderId) {
+          <div class="order-card">
+            <div class="order-header">
+              <h3>Order #{{ order.orderId }}</h3>
+              <span class="order-status">{{ getStatusName(order.status) }}</span>
+            </div>
+            <p class="partner-name">From: {{ order.partnerName }}</p>
+            <p class="order-total">Total: {{ order.totalPrice }} JD</p>
+            <!-- <p>Placed on: {{ order.orderDate | date:'short' }}</p> -->
+          </div>
+        }
+      </div>
+    } @else {
+      <p class="empty-state">You have no past orders.</p>
+    }
+  }
+</div>

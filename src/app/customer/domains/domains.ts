@@ -55,4 +55,8 @@ export class Domains implements OnInit{
   goToCart(){
     this.router.navigate(['customer/cart']);
   }
+
+  goToTrackOrders() {
+    this.router.navigate(['customer/track-orders']);
+  }
 }
