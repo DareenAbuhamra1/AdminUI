@@ -51,4 +51,8 @@ export class Domains implements OnInit{
     console.log(`Selected domain Id: ${d}`);
     this.router.navigate(['customer/stores'],{queryParams :{domainId:d}});
   }
+
+  goToCart(){
+    this.router.navigate(['customer/cart']);
+  }
 }

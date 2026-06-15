@@ -49,4 +49,8 @@ export class Stores {
   selectStore(s:number){
     this.router.navigate(['customer/products'],{queryParams:{partnerId:s, domainId:this.domainId}});
   }
+
+  goToCart(){
+    this.router.navigate(['customer/cart']);
+  }
 }

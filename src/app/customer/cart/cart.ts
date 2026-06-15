@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 export class Cart implements OnInit {
   isLoading = signal<boolean>(true);
   cartData: any = null;
+  orderId: number = 0;
 
   constructor(
     private http: HttpClient,
@@ -36,8 +37,13 @@ export class Cart implements OnInit {
     // TODO: Update this URL to match your exact backend endpoint for fetching the cart
     this.http.get<any>(`${environment.apiUrls.customer}/Order/cart/${customerId}`).subscribe({
       next: (res) => {
-        // Assuming your backend returns { data: {...}, success: true }
-        this.cartData = res.data ? res.data : res;
+        if (res && res.data) {
+          this.cartData = res.data;
+        } else if (res && res.orderId) {
+          this.cartData = res;
+        } else {
+          this.cartData = null;
+        }
         this.isLoading.set(false);
       },
       error: (err) => {
@@ -55,7 +61,7 @@ export class Cart implements OnInit {
 
     this.isLoading.set(true);
     // TODO: Update this URL to match your exact backend endpoint for deleting a cart
-    this.http.delete(`${environment.apiUrls.customer}/Order/cart/${customerId}`).subscribe({
+    this.http.delete(`${environment.apiUrls.customer}/Order/cart/${this.cartData.orderId}`).subscribe({
       next: () => {
         this.snackBar.open("Cart deleted successfully", "Close", { duration: 3000 });
         this.cartData = null; // Clears the UI

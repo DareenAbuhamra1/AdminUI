@@ -5,6 +5,10 @@
   @if (isLoading()) {
     <p>Loading stores...</p>
   } @else {
+    <div class="header-actions">
+    <button class="view-cart-btn" (click)="goToCart()">🛒 View Cart</button>
+    </div>
+
     <div class="stores-grid">
       
       <!-- Loop through the stores, fallback to empty state if array is empty -->
