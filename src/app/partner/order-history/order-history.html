@@ -10,7 +10,7 @@
   <div class="filters-card">
     <div class="filter-group">
       <label for="search">Search</label>
-      <input id="search" type="text" [(ngModel)]="query.search" placeholder="Search orders..." />
+      <input id="search" type="text" [(ngModel)]="query.search" placeholder="Search orders..." [disabled]="true"/>
     </div>
 
     <div class="filter-group">

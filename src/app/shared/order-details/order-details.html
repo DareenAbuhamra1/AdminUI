@@ -1,0 +1,78 @@
+<div class="order-details-wrapper">
+  @if (isLoading()) {
+    <p class="loading">Loading order details...</p>
+  } @else if (error()) {
+    <p class="error-state">{{ error() }}</p>
+  } @else if (orderDetails(); as order) {
+    <div class="order-card">
+      <header class="card-header">
+        <h2>Order #{{ orderId }}</h2>
+        <span class="payment-badge">{{ order.paymentType }}</span>
+      </header>
+
+      <div class="details-grid">
+        <section class="info-group">
+          <h3>Customer</h3>
+          <p><strong>Name:</strong> {{ order.customerName }}</p>
+          <p><strong>Location:</strong> {{ order.customerLocation }}</p>
+        </section>
+
+        <section class="info-group">
+          <h3>Partner</h3>
+          <p><strong>Name:</strong> {{ order.partnerName }}</p>
+          <p><strong>Location:</strong> {{ order.partnerLocation }}</p>
+        </section>
+
+        @if (order.driverName) {
+          <section class="info-group">
+            <h3>Driver</h3>
+            <p><strong>Name:</strong> {{ order.driverName }}</p>
+          </section>
+        }
+
+        <section class="info-group timeline-group">
+          <h3>Timeline</h3>
+          <ul>
+            @if (order.placementTime) { <li><strong>Placed:</strong> {{ order.placementTime + 'Z' | date:'short':'Asia/Amman' }}</li> }
+            @if (order.acceptedTime) { <li><strong>Accepted:</strong> {{ order.acceptedTime + 'Z' | date:'short':'Asia/Amman' }}</li> }
+            @if (order.pickedUpTime) { <li><strong>Picked Up:</strong> {{ order.pickedUpTime + 'Z' | date:'short':'Asia/Amman' }}</li> }
+            @if (order.deliveredTime) { <li><strong>Delivered:</strong> {{ order.deliveredTime + 'Z' | date:'short':'Asia/Amman' }}</li> }
+          </ul>
+        </section>
+      </div>
+
+      <section class="items-section">
+        <h3>Order Items</h3>
+        <ul class="items-list">
+          @for (item of order.orderItems; track item.orderItemId) {
+            <li class="item">
+              <div class="item-primary">
+                <span class="item-name">{{ item.quantity }}x {{ item.orderItemName }}</span>
+                <span class="item-price">{{ item.orderItemPrice * item.quantity | number:'1.2-2' }} JD</span>
+              </div>
+              @if (item.orderItemOptions && item.orderItemOptions.length > 0) {
+                <ul class="item-options">
+                  @for (option of item.orderItemOptions; track option.orderOptionId) {
+                    <li>
+                      <span>+ {{ option.orderOptionQuantity }}x {{ option.orderOptionName }}</span>
+                      <span>{{ option.orderOptionPrice * option.orderOptionQuantity | number:'1.2-2' }} JD</span>
+                    </li>
+                  }
+                </ul>
+              }
+            </li>
+          }
+        </ul>
+      </section>
+
+      <section class="payment-summary">
+        <div class="summary-row"><span>Subtotal</span><span>{{ order.subTotal | number:'1.2-2' }} JD</span></div>
+        <div class="summary-row"><span>Service Fee</span><span>{{ order.serviceFee | number:'1.2-2' }} JD</span></div>
+        <div class="summary-row"><span>Delivery Fee</span><span>{{ order.deliveryFee | number:'1.2-2' }} JD</span></div>
+        <div class="summary-row total"><span>Total Payment</span><span>{{ order.totalPayment | number:'1.2-2' }} JD</span></div>
+      </section>
+    </div>
+  } @else {
+    <p class="empty-state">No details available for this order.</p>
+  }
+</div>

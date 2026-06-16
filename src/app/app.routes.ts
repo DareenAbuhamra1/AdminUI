@@ -1,10 +1,9 @@
 import { Routes } from '@angular/router';
-import { OtpLogin } from './shared/otp-login/otp-login';
 import { RoleSelection } from './role-selection/role-selection';
 import { RequestOtp } from './shared/request-otp/request-otp';
 import { VerifyOtp } from './shared/verify-otp/verify-otp';
 import { RegisterCustomer } from './register-customer/register-customer';
-import { LocationCustomer } from './location-customer/location-customer';
+import { LocationCustomer } from './customer/location-customer/location-customer';
 
 export const routes: Routes = [
   { 
@@ -41,4 +40,8 @@ export const routes: Routes = [
     path : 'partner',
     loadChildren: () => import('./partner/partner-module').then(m => m.PartnerModule)
   },
+  {
+    path:'driver',
+    loadChildren:()=> import('./driver/driver-module').then(m => m.DriverModule)
+  }
 ];

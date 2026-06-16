@@ -1,0 +1,61 @@
+<div class="assigned-order-container">
+  <header>
+    <h2>Assigned Order</h2>
+  </header>
+
+  @if (isLoading()) {
+    <p class="loading">Loading assigned order...</p>
+  } @else {
+    @if (assignedOrder) {
+      <div class="order-card">
+        <div class="order-header">
+          <h3>Order #{{ assignedOrder.orderId }}</h3>
+          @if (assignedOrder.isReadyForPickup) {
+            <span class="status badge-ready">Ready For Pickup</span>
+          } @else {
+            <span class="status badge-preparing">Preparing</span>
+          }
+        </div>
+        
+        <div class="order-details">
+          <div class="detail-section">
+            <h4>Partner Details</h4>
+            <p><strong>Name:</strong> {{ assignedOrder.partnerName }}</p>
+            <p><strong>Location:</strong> {{ assignedOrder.partnerLocation }}</p>
+          </div>
+
+          <div class="detail-section">
+            <h4>Customer Details</h4>
+            <p><strong>Name:</strong> {{ assignedOrder.customerName }}</p>
+            <p><strong>Phone:</strong> {{ assignedOrder.customerPhone }}</p>
+            <p><strong>Delivery Location:</strong> {{ assignedOrder.deliveryLocation }}</p>
+          </div>
+
+          <div class="detail-section">
+            <h4>Estimation</h4>
+            <p><strong>Start:</strong> {{ assignedOrder.startEstimation }}</p>
+            <p><strong>End:</strong> {{ assignedOrder.endEstimation }}</p>
+          </div>
+
+          <div class="order-summary-prices">
+            <h4>Payment Summary</h4>
+            <p><strong>Subtotal:</strong> {{ assignedOrder.subTotal }} JD</p>
+            <p><strong>Service Fee:</strong> {{ assignedOrder.serviceFee }} JD</p>
+            <p><strong>Delivery Fee:</strong> {{ assignedOrder.deliveryFee }} JD</p>
+            <p><strong>Total Payment:</strong> {{ assignedOrder.totalPayment }} JD</p>
+          </div>
+        </div>
+
+        @if (assignedOrder.isReadyForPickup) {
+          <div class="order-actions">
+            <button class="btn-primary" (click)="pickUpOrder()">Pick Up Order</button>
+          </div>
+        }
+      </div>
+    } @else {
+      <div class="empty-state">
+        <p>You currently do not have any assigned order.</p>
+      </div>
+    }
+  }
+</div>

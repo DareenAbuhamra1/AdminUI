@@ -1,0 +1,36 @@
+<div class="nearest-orders-container">
+  <header>
+    <h2>Nearest Orders</h2>
+  </header>
+
+  @if (isLoading()) {
+    <p class="loading">Finding nearest orders...</p>
+  } @else {
+    @if (nearestOrders && nearestOrders.length > 0) {
+      <div class="orders-grid">
+        @for (order of nearestOrders; track order.id) {
+          <div class="order-card">
+            <div class="order-header">
+              <h3>{{ order.partnerName }}</h3>
+              <span class="distance badge">{{ order.distanceInKm | number:'1.1-2' }} km away</span>
+            </div>
+            
+            <div class="order-details">
+              <p><strong>Address:</strong> {{ order.street }}, {{ order.area }}</p>
+              <p><strong>Delivery Fee:</strong> {{ order.deliveryFees }} JD</p>
+              <p><strong>Total Payment:</strong> {{ order.totalPayment }} JD</p>
+            </div>
+
+            <div class="order-actions">
+              <button class="btn-primary" (click)="acceptOrder(order.id)" [disabled]="hasAssignedOrder">Accept Order</button>
+            </div>
+          </div>
+        }
+      </div>
+    } @else {
+      <div class="empty-state">
+        <p>No available orders near you at the moment.</p>
+      </div>
+    }
+  }
+</div>

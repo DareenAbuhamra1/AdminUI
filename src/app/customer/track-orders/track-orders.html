@@ -1,27 +1,50 @@
 <div class="track-orders-container">
-  <div class="page-header">
-    <h2>My Orders</h2>
-  </div>
+  <h2>Track My Orders</h2>
 
   @if (isLoading()) {
-    <p class="loading-state">Loading your orders...</p>
+    <p>Loading orders...</p>
   } @else {
-    @if (orders && orders.length > 0) {
-      <div class="orders-list">
-        @for (order of orders; track order.orderId) {
-          <div class="order-card">
-            <div class="order-header">
-              <h3>Order #{{ order.orderId }}</h3>
-              <span class="order-status">{{ getStatusName(order.status) }}</span>
-            </div>
-            <p class="partner-name">From: {{ order.partnerName }}</p>
-            <p class="order-total">Total: {{ order.totalPrice }} JD</p>
-            <!-- <p>Placed on: {{ order.orderDate | date:'short' }}</p> -->
+    @if (groupedOrders.length > 0) {
+      @for (group of groupedOrders; track group.status) {
+        <div class="order-group">
+          <h3 class="status-header">{{ group.statusName }}</h3>
+          
+          <div class="orders-list">
+            @for (order of group.orders; track order.orderId) {
+              <div class="order-card" [class.card-canceled]="isCanceled(order.orderStatus)">
+                <div class="order-header">
+                  <div>
+                    <h4>Order #{{ order.orderId }}</h4>
+                    <span class="partner-name">{{ order.partnerName }}</span>
+                  </div>
+                  <span class="badge" [class.badge-canceled]="isCanceled(order.orderStatus)">
+                    {{ group.statusName }}
+                  </span>
+                </div>
+                
+                <div class="order-details">
+                  <p class="meta-info">Placed: {{ combineUtcDate(order.placedDate, order.placedTime) | date:'yyyy-MM-dd':'Asia/Amman' }} at {{ combineUtcDate(order.placedDate, order.placedTime) | date:'HH:mm':'Asia/Amman' }}</p>
+                  <p><strong>Delivery To:</strong> {{ order.deliveryLocation }}</p>
+                </div>
+
+                <div class="order-actions">
+                  <button class="btn-secondary" (click)="toggleDetails(order.orderId)">
+                    {{ expandedOrderId === order.orderId ? 'Hide Details' : 'View Details' }}
+                  </button>
+                </div>
+                
+                @if (expandedOrderId === order.orderId) {
+                  <div class="expanded-details">
+                    <app-order-details [orderId]="order.orderId" role="customer"></app-order-details>
+                  </div>
+                }
+              </div>
+            }
           </div>
-        }
-      </div>
+        </div>
+      }
     } @else {
-      <p class="empty-state">You have no past orders.</p>
+      <p class="empty-state">You have no orders at the moment.</p>
     }
   }
 </div>

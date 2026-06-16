@@ -46,6 +46,9 @@ export class VerifyOtp {
       case RoleEnum.Partner.toString():
         this.verifyPartnerOtp()
         break;
+      case RoleEnum.Driver.toString():
+        this.verifyDriverOtp()
+        break;
     }
 
 
@@ -69,7 +72,13 @@ export class VerifyOtp {
                   next: (res) => {
                     if (res.locationId != null)
                       localStorage.setItem("loc", res.locationId.toString());
+                  },
+                  error: (err) =>{
+                    if(err.status == 404){
+                      this.router.navigate(['location'], {queryParams: {userId:res.userId}});
+                    }
                   }
+              
                 });
                 this.router.navigate(['customer/domains']);
               }
@@ -126,6 +135,42 @@ export class VerifyOtp {
                 if (res.userId != null)
                   localStorage.setItem("partnerId", res.userId.toString());
                 this.router.navigate(['partner/dashboard']);
+              }
+            }
+        })
+        }
+        else {
+          this.snackBar.open(res.message, 'Close', {
+            duration: 3000
+          });
+        }
+      }, 
+      error: (err) =>{
+        if(err.status == 400){
+          this.snackBar.open("Invalid OTP or session expired", 'Close', { duration: 3000 });
+          this.router.navigate(['request-otp']);
+        }
+      }
+    })
+  }
+  verifyDriverOtp(){
+    const dto: verifyOtpDto = {
+      phone: this.phone,
+      otpCode: this.inputOtp,
+      role: Number(this.role),
+    }
+    this.http.post<authResponseDto>(`${environment.apiUrls.driver}/Driver/auth/verify-otp`, dto).subscribe({
+      next: (res) => {
+        if(res.isSuccess){
+          this.http.post<authResponseDto>(`${environment.apiUrls.driver}/Driver/auth/login-driver`, { phone: this.phone }).subscribe({
+            next: (res) => {
+              if (res.isSuccess && res.isRegistered && res.isActive) {
+                this.authService.setToken(res.token);
+                if (res.userId != null)
+                  localStorage.setItem("driverId", res.userId.toString());
+                localStorage.setItem('driverName',res.fullName);
+                this.router.navigate(['driver/dashboard']);
+
               }
             }
         })

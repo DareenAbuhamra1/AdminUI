@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { OrderStatusEnum } from '../../shared/enums/OrderStatusEnum';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../shared/environments/environment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-order-history',
@@ -12,17 +13,18 @@ import { environment } from '../../shared/environments/environment';
 })
 export class OrderHistory {
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private router:Router,
   ) { }
   orders: any[] = [];
   isLoading = signal<boolean>(false);
   partnerId: number = 0;
   totalPages: number = 1;
   totalCount: number = 0;
-  // Model mapping to your backend OrderHistoryQueryDto
+  
   query = {
     page: 1,
-    pageSize: 10,
+    pageSize: 9,
     status: null as number | null,
     from: null as string | null,
     to: null as string | null,
@@ -76,7 +78,7 @@ export class OrderHistory {
   }
 
   resetFilters() {
-    this.query = { page: 1, pageSize: 10, status: null, from: null, to: null, search: null };
+    this.query = { page: 1, pageSize: 9, status: null, from: null, to: null, search: null };
     this.loadOrders();
   }
 
@@ -85,7 +87,7 @@ export class OrderHistory {
     this.loadOrders();
   }
   goBack() {
-
+    this.router.navigate(['partner/dashboard'])
   }
   getStatusName(status: number) {
     const statusName = OrderStatusEnum[status];

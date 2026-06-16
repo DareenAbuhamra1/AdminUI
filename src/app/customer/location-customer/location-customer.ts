@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { LocationDto } from '../shared/models/LocationDto';
-import { CountryEnum } from '../shared/enums/CountryEnum';
-import { CityEnum } from '../shared/enums/CityEnum';
+import { LocationDto } from '../../shared/models/LocationDto';
+import { CountryEnum } from '../../shared/enums/CountryEnum';
+import { CityEnum } from '../../shared/enums/CityEnum';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GoogleMapsModule } from '@angular/google-maps';
-import { environment } from '../shared/environments/environment';
+import { environment } from '../../shared/environments/environment';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -114,6 +114,7 @@ export class LocationCustomer {
       next : (res) =>{
         if(res.locationId != null && res.locationId > 0){
           localStorage.setItem("loc",res.locationId.toString());
+          localStorage.setItem("customerId",res.customerId.toString());
           this.router.navigate(['customer/domains']);
         }
         else{

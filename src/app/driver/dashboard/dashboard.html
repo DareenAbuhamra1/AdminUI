@@ -1,0 +1,7 @@
+<div class="dashboard-header">
+  <h1>Welcome {{driverName}}!</h1>
+  <button class="btn-logout" (click)="logout()">Logout</button>
+</div>
+
+<app-assigned-order (hasAssignedOrderChange)="hasAssignedOrder = $event"></app-assigned-order>
+<app-nearest-orders (orderAccepted)="onOrderAccepted()" [hasAssignedOrder]="hasAssignedOrder"></app-nearest-orders>

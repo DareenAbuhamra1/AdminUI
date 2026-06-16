@@ -40,6 +40,7 @@ export class RegisterCustomer {
   
   registerCustomer(){
     this.isSubmitting = true;
+    this.customer.Gender = Number(this.customer.Gender);
     this.http.post<authResponseDto>(`${environment.apiUrls.customer}/Customer/auth/register-customer`,this.customer).subscribe({
       next: (res) =>{
         if(res.isSuccess){
