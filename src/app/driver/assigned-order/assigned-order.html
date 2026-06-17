@@ -7,14 +7,13 @@
     <p class="loading">Loading assigned order...</p>
   } @else {
     @if (assignedOrder) {
-      <div class="order-card">
+      @if (isViewingDetails()) {
+        <button (click)="closeDetails()" style="margin-bottom: 1rem; cursor: pointer;" class="btn-secondary">&larr; Back to Assignment</button>
+        <app-order-details [orderId]="assignedOrder.orderId"></app-order-details>
+      } @else {
+      <div class="order-card" (click)="viewDetails()" style="cursor: pointer;" title="Click to view details">
         <div class="order-header">
           <h3>Order #{{ assignedOrder.orderId }}</h3>
-          @if (assignedOrder.isReadyForPickup) {
-            <span class="status badge-ready">Ready For Pickup</span>
-          } @else {
-            <span class="status badge-preparing">Preparing</span>
-          }
         </div>
         
         <div class="order-details">
@@ -30,13 +29,7 @@
             <p><strong>Phone:</strong> {{ assignedOrder.customerPhone }}</p>
             <p><strong>Delivery Location:</strong> {{ assignedOrder.deliveryLocation }}</p>
           </div>
-
-          <div class="detail-section">
-            <h4>Estimation</h4>
-            <p><strong>Start:</strong> {{ assignedOrder.startEstimation }}</p>
-            <p><strong>End:</strong> {{ assignedOrder.endEstimation }}</p>
-          </div>
-
+          
           <div class="order-summary-prices">
             <h4>Payment Summary</h4>
             <p><strong>Subtotal:</strong> {{ assignedOrder.subTotal }} JD</p>
@@ -46,12 +39,17 @@
           </div>
         </div>
 
-        @if (assignedOrder.isReadyForPickup) {
+        @if (assignedOrder.status === 6) {
           <div class="order-actions">
-            <button class="btn-primary" (click)="pickUpOrder()">Pick Up Order</button>
+            <button class="btn-primary" style="background-color: #10b981;" (click)="deliverOrder($event)">Deliver Order</button>
+          </div>
+        } @else if (assignedOrder.isReadyForPickup) {
+          <div class="order-actions">
+            <button class="btn-primary" (click)="pickUpOrder($event)">Pick Up Order</button>
           </div>
         }
       </div>
+      }
     } @else {
       <div class="empty-state">
         <p>You currently do not have any assigned order.</p>

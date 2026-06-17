@@ -59,6 +59,11 @@ header h2 {
   color: #92400e;
 }
 
+.badge-picked-up {
+  background-color: #dbeafe;
+  color: #1e40af;
+}
+
 .order-details {
   padding: 1.5rem;
   display: grid;

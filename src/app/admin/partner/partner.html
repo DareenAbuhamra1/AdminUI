@@ -66,16 +66,19 @@
       
       <div class="select-group">
         <label>Target Partner</label>
-        <select [(ngModel)]="selectedPartnerId">
-          <option [ngValue]="null" disabled>Select a Partner</option>
-          <option *ngFor="let partner of partners" [ngValue]="partner.id">
-            {{ partner.name }}
-          </option>
-        </select>
+        <div style="display: flex; gap: 0.5rem; align-items: center;">
+          <select [(ngModel)]="selectedPartnerId">
+            <option [ngValue]="null" disabled>Select a Partner</option>
+            <option *ngFor="let partner of partners" [ngValue]="partner.id">
+              {{ partner.name }}
+            </option>
+          </select>
+          <button type="button" (click)="loadPartners(true)" style="padding: 0.2rem 0.5rem;" title="Refresh Partners">↻</button>
+        </div>
       </div>
 
       <!-- Restrict file input to Excel files -->
-      <input type="file" (change)="onFileSelected($event)" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
+      <input type="file" (change)="onFileSelected($event)" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel,.xlsx" />
       
       <button (click)="uploadMenu()">Upload Menu</button>
     </div>

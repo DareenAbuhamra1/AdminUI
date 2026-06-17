@@ -1,0 +1,41 @@
+<div class="admin-driver-container">
+  <h2>Manage Drivers</h2>
+  <div *ngIf="isLoading()">Loading drivers...</div>
+
+  <div *ngIf="!isLoading()" class="lists-container">
+    <!-- Active Drivers -->
+    <div class="driver-section">
+      <h3>Active Drivers</h3>
+      <div *ngIf="activeDrivers.length === 0">No active drivers found.</div>
+      <ul class="driver-list">
+        <li *ngFor="let driver of activeDrivers" class="driver-card">
+          <div class="driver-info">
+            <strong>{{ driver.firstName }} {{ driver.lastName }}</strong>
+            <p>Phone: {{ driver.phone }}</p>
+            <p>Vehicle Lic: {{ driver.vehicleLicense }} | Driver Lic: {{ driver.driverLicense }}</p>
+            <p>Assigned: {{ driver.isAssigned ? 'Yes' : 'No' }}</p>
+          </div>
+          <button class="action-btn deactivate-btn" (click)="toggleDriverStatus(driver.driverId, false)">Deactivate</button>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Inactive Drivers -->
+    <div class="driver-section inactive-section">
+      <h3>Inactive / Pending Drivers</h3>
+      <div *ngIf="inactiveDrivers.length === 0">No inactive drivers found.</div>
+      <ul class="driver-list">
+        <li *ngFor="let driver of inactiveDrivers" class="driver-card">
+          <div class="driver-info">
+            <strong>{{ driver.firstName }} {{ driver.lastName }}</strong>
+            <p>Phone: {{ driver.phone }}</p>
+            <p>Vehicle Lic: {{ driver.vehicleLicense }} | Driver Lic: {{ driver.driverLicense }}</p>
+            <p>Assigned: {{ driver.isAssigned ? 'Yes' : 'No' }}</p>
+          </div>
+          <button class="action-btn activate-btn" (click)="toggleDriverStatus(driver.driverId, true)">Activate</button>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+</div>

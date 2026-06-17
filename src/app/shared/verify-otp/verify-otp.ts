@@ -18,7 +18,8 @@ import { LocationDto } from '../models/LocationDto';
   styleUrl: './verify-otp.css',
 })
 export class VerifyOtp {
-  constructor(private route: ActivatedRoute,
+  constructor(
+    private route: ActivatedRoute,
     private http: HttpClient,
     private authService: AuthService,
     private router: Router,
@@ -164,6 +165,9 @@ export class VerifyOtp {
         if(res.isSuccess){
           this.http.post<authResponseDto>(`${environment.apiUrls.driver}/Driver/auth/login-driver`, { phone: this.phone }).subscribe({
             next: (res) => {
+              if (!res.isRegistered) {
+                this.router.navigate(['/driver/register'], { state: { phone: this.phone } });
+              }
               if (res.isSuccess && res.isRegistered && res.isActive) {
                 this.authService.setToken(res.token);
                 if (res.userId != null)
@@ -183,7 +187,7 @@ export class VerifyOtp {
       }, 
       error: (err) =>{
         if(err.status == 400){
-          this.snackBar.open("Invalid OTP or session expired", 'Close', { duration: 3000 });
+          this.snackBar.open(err.message, 'Close', { duration: 3000 });
           this.router.navigate(['request-otp']);
         }
       }

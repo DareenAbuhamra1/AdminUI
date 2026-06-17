@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, signal, Output, EventEmitter } from '@angular/core';
 import { environment } from '../../shared/environments/environment';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { OrderStatusEnum } from '../../shared/enums/OrderStatusEnum';
+import { OrderDetails } from '../../shared/order-details/order-details';
 
 export interface AssignedOrderDto {
   orderId: number;
@@ -11,6 +13,7 @@ export interface AssignedOrderDto {
   customerPhone: string;
   deliveryLocation: string;
   isReadyForPickup: boolean;
+  status:number,
   subTotal: number;
   serviceFee: number;
   deliveryFee: number;
@@ -21,7 +24,7 @@ export interface AssignedOrderDto {
 
 @Component({
   selector: 'app-assigned-order',
-  imports: [],
+  imports: [OrderDetails],
   templateUrl: './assigned-order.html',
   styleUrl: './assigned-order.css',
 })
@@ -29,6 +32,7 @@ export class AssignedOrder implements OnInit {
   assignedOrder: AssignedOrderDto | null = null;
   driverId: number = 0;
   isLoading = signal<boolean>(false);
+  isViewingDetails = signal<boolean>(false);
 
   @Output() hasAssignedOrderChange = new EventEmitter<boolean>();
 
@@ -61,7 +65,18 @@ export class AssignedOrder implements OnInit {
     });
   }
 
-  pickUpOrder(): void {
+  viewDetails(): void {
+    this.isViewingDetails.set(true);
+  }
+
+  closeDetails(): void {
+    this.isViewingDetails.set(false);
+  }
+
+  pickUpOrder(event?: Event): void {
+    if (event) {
+      event.stopPropagation();
+    }
     if (!this.assignedOrder) return;
     
     this.isLoading.set(true);
@@ -84,6 +99,36 @@ export class AssignedOrder implements OnInit {
         console.error("Error picking up order", err);
         this.isLoading.set(false);
         this.snackBar.open("An error occurred while picking up the order.", "Close", { duration: 3000 });
+      }
+    });
+  }
+
+  deliverOrder(event?: Event): void {
+    if (event) {
+      event.stopPropagation();
+    }
+    if (!this.assignedOrder) return;
+    
+    this.isLoading.set(true);
+   
+    this.http.patch<any>(`${environment.apiUrls.driver}/Order/${this.assignedOrder.orderId}/deliver/driver/${this.driverId}`, null).subscribe({
+      next: (res) => {
+        if (res !== false) {
+          this.snackBar.open("Order delivered successfully", "Close", { duration: 3000 });
+          
+          this.assignedOrder = null;
+          this.hasAssignedOrderChange.emit(false);
+          setTimeout(() => this.getAssignedOrder(), 500); 
+        }
+        else {
+          this.isLoading.set(false);
+          this.snackBar.open("Couldn't deliver order.", "Close", { duration: 3000 });
+        }
+      },
+      error: (err) => {
+        console.error("Error delivering order", err);
+        this.isLoading.set(false);
+        this.snackBar.open("An error occurred while delivering the order.", "Close", { duration: 3000 });
       }
     });
   }

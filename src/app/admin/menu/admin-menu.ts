@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-menu',
@@ -12,7 +13,13 @@ export class AdminMenu {
     { label: 'Manage Domains', icon: 'language', route: '/admin/domain' },
     { label: 'Manage Partners', icon: 'business', route: '/admin/partners' },
     { label: 'Manage Drivers', icon: 'local_shipping', route: '/admin/drivers' },
-    { label: 'Manage Customers', icon: 'people', route: '/admin/customers' },
-    { label: 'Settings', icon: 'settings', route: '/admin/settings' }
+    { label: 'Manage Customers', icon: 'people', route: '/admin/customers' }
   ];
+
+  constructor(private router: Router) {}
+
+  logout(): void {
+    localStorage.clear();
+    this.router.navigate(['/']); // Adjust to '/admin/login' if needed
+  }
 }

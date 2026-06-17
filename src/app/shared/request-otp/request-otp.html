@@ -1,15 +1,11 @@
 <div class="otp-container">
   <h2>Request OTP</h2>
   <p>Please enter your phone number to receive a one-time password.</p>
-  
+
   <div class="form-group">
     <label for="phone">Phone Number</label>
-    <input 
-      type="text" 
-      id="phone" 
-      [(ngModel)]="phone" 
-      placeholder="e.g., +1234567890" 
-      autocomplete="tel" />
+    <input type="text" id="phone" [(ngModel)]="phone" placeholder="e.g., 0791234567" autocomplete="tel" maxlength="10"
+      pattern="[0-9]{10}" />
   </div>
 
   <button class="primary-btn" (click)="requestOtp(phone)">Send OTP</button>

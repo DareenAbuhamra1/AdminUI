@@ -2,13 +2,15 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { Dashboard } from './dashboard/dashboard';
+import { Register } from './register/register';
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
     RouterModule.forChild([
-      {path: 'dashboard',component: Dashboard}
+      {path: 'dashboard',component: Dashboard},
+      {path :'register', component :Register}
     ])
   ],
 })

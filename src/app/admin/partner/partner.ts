@@ -88,7 +88,7 @@ export class Partner implements OnInit {
       longitude: this.newPartner.longitude ?? 0,
     };
 
-    this.http.post(`${environment.apiUrls.admin}/Partner/create-partner`, payload).subscribe({
+    this.http.post(`${environment.apiUrls.admin}/Account/create-partner`, payload).subscribe({
       next: () => {
         this.snackBar.open('Partner created successfully', 'Close', { duration: 3000 });
         this.loadPartners(true); // Force refresh to fetch the newly created partner
@@ -113,7 +113,7 @@ export class Partner implements OnInit {
     const formData = new FormData();
     formData.append('file', this.selectedFile);
 
-    this.http.post(`${environment.apiUrls.admin}/Partner/${this.selectedPartnerId}/menu`, formData).subscribe({
+    this.http.post(`${environment.apiUrls.admin}/Product/upload-menu/${this.selectedPartnerId}`, formData).subscribe({
       next: () => this.snackBar.open('Menu uploaded successfully', 'Close', { duration: 3000 }),
       error: (err) => this.snackBar.open(`Error uploading menu: ${err.message}`, 'Close', { duration: 3000 })
     });

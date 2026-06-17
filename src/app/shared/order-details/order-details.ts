@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit, signal } from '@angular/core';
 import { environment } from '../../shared/environments/environment';
 import { DatePipe, DecimalPipe } from '@angular/common';
+import { RoleEnum } from '../enums/RoleEnum.enum';
 
 export interface OrderOptionDetailsDto {
   orderOptionId: number;
@@ -56,7 +57,14 @@ export class OrderDetails implements OnInit {
 
   ngOnInit() {
     if (!this.role) {
-      this.role = (localStorage.getItem('role')?.toLowerCase() as any) || 'customer';
+      const storedRole = localStorage.getItem('role');
+      switch (storedRole) {
+        case RoleEnum.Admin.toString(): this.role = 'admin'; break;
+        case RoleEnum.Customer.toString(): this.role = 'customer'; break;
+        case RoleEnum.Driver.toString(): this.role = 'driver'; break;
+        case RoleEnum.Partner.toString(): this.role = 'partner'; break;
+        default: this.role = 'customer'; break;
+      }
     }
 
     if (this.orderId) {

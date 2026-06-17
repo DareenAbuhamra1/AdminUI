@@ -13,6 +13,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
 import { Domain } from './domain/domain';
 import { Partner } from './partner/partner';
+import { Driver } from './driver/driver';
 
 @NgModule({
   declarations: [Login, Dashboard,AdminMenu],
@@ -28,7 +29,8 @@ import { Partner } from './partner/partner';
         { path: 'login', component: Login },
         { path: 'dashboard', component: Dashboard },
         { path:'domain',component:Domain},
-        { path: 'partners', component: Partner}
+        { path: 'partners', component: Partner},
+        { path: 'drivers', component: Driver }
     ]),
     Orders,
   ],

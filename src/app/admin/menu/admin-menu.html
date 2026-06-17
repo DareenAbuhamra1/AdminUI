@@ -5,3 +5,9 @@
     <div matListItemTitle>{{ item.label }}</div>
   </a>
 </mat-nav-list>
+<mat-nav-list style="margin-top: auto;">
+  <a mat-list-item (click)="logout()" style="cursor: pointer; color: #dc3545;">
+    <mat-icon matListItemIcon>logout</mat-icon>
+    <div matListItemTitle>Logout</div>
+  </a>
+</mat-nav-list>
