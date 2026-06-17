@@ -7,13 +7,9 @@ import { Component } from '@angular/core';
   styleUrl: './dashboard.css',
 })
 export class Dashboard {
-  activeSection: 'drivers' | 'orders' | null = null;
-  
-  showDrivers() {
-    this.activeSection = 'drivers';
-  }
+  isSidebarOpen = true;
 
-  showOrders() {
-    this.activeSection = 'orders';
+  toggleSidebar(): void {
+    this.isSidebarOpen = !this.isSidebarOpen;
   }
 }

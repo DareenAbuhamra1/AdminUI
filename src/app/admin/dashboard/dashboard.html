@@ -1,16 +1,21 @@
-<h1>Admin Dashboard</h1>
+<mat-sidenav-container class="dashboard-container">
+  <!-- The Side Menu -->
+  <mat-sidenav mode="side" [opened]="isSidebarOpen" class="admin-sidenav">
+    <app-admin-menu></app-admin-menu>
+  </mat-sidenav>
 
-<div class="dashboard-buttons">
-
-  <button (click)="showDrivers()">Get Drivers</button>
-  <button (click)="showOrders()">Get Orders</button>
-
-</div>
-
-@if(activeSection === 'drivers'){
-  <h2>Drivers tab active</h2>
-}
-
-@if(activeSection === 'orders'){
-  <app-orders></app-orders>
-}
+  <!-- The Main Dashboard Body -->
+  <mat-sidenav-content class="dashboard-content">
+    <mat-toolbar color="primary">
+      <button mat-icon-button (click)="toggleSidebar()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>Admin Dashboard</span>
+    </mat-toolbar>
+    
+    <div class="content-area">
+      <!-- Your inner dashboard statistics/widgets or router-outlet for child routes -->
+      <h2>Welcome to the Admin Dashboard!</h2>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

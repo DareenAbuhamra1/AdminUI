@@ -1,0 +1,7 @@
+<mat-nav-list>
+  <div mat-subheader>Admin Menu</div>
+  <a mat-list-item *ngFor="let item of menuItems" [routerLink]="item.route" routerLinkActive="active-link">
+    <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+    <div matListItemTitle>{{ item.label }}</div>
+  </a>
+</mat-nav-list>

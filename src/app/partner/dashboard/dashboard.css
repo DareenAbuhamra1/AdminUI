@@ -11,6 +11,11 @@ header {
   margin-bottom: 24px;
 }
 
+.header-actions {
+  display: flex;
+  gap: 12px;
+}
+
 header h2 {
   margin: 0;
 }
@@ -29,4 +34,14 @@ header h2 {
 
 .nav-btn:hover {
   background-color: #e0e0e0;
+}
+
+.nav-btn.logout-btn {
+  background-color: #f44336;
+  color: #ffffff;
+  border-color: #d32f2f;
+}
+
+.nav-btn.logout-btn:hover {
+  background-color: #d32f2f;
 }

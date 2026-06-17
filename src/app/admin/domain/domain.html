@@ -1,0 +1,51 @@
+<div class="admin-domains-container">
+  <h2>Manage Domains</h2>
+  <!-- 1. List Domains Section -->
+  <div class="list-section">
+    <h3>All Domains</h3>
+    
+    <p *ngIf="isLoading()">Loading domains...</p>
+    
+    <ul *ngIf="!isLoading()">
+      <li *ngFor="let domain of domains">
+        {{ domain.name }} 
+      </li>
+    </ul>
+    <p *ngIf="!isLoading() && domains.length === 0">No domains found.</p>
+  </div>
+
+  <!-- 2. Create Domain Section -->
+  <div class="action-section">
+    <h3>Create New Domain</h3>
+    <div style="display: flex; gap: 1rem; align-items: center;">
+      <input type="text" [(ngModel)]="newDomainName" placeholder="Enter Domain Name" />
+      <button (click)="createDomain()">Create</button>
+    </div>
+  </div>
+
+  <hr />
+
+  <!-- 3. Attach Partner to Domain Section -->
+  <div class="action-section">
+    <h3>Attach Partner to Domain</h3>
+    <div style="display: flex; gap: 1rem; align-items: center;">
+      <select [(ngModel)]="selectedDomainId">
+        <option [ngValue]="null" disabled>Select a Domain</option>
+        <option *ngFor="let domain of domains" [ngValue]="domain.id">
+          {{ domain.name }}
+        </option>
+      </select>
+      
+      <select [(ngModel)]="partnerIdToAttach">
+        <option [ngValue]="null" disabled>Select a Partner</option>
+        <option *ngFor="let partner of partners" [ngValue]="partner.id">
+          {{ partner.name }} - {{partner.area}}
+        </option>
+      </select>
+      <button (click)="attachPartner()">Attach Partner</button>
+    </div>
+  </div>
+
+  <hr />
+
+</div>

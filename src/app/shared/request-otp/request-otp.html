@@ -1,14 +1,16 @@
-<div class="login-container">
- <h2>Login</h2>
- <form (ngSubmit)="requestOtp(phone)">
-   <div class="form-group">
-     <label for="phone">Phone Number</label>
-     <input id="phone" name="phone" type="tel" [(ngModel)]="phone"
-        required placeholder="079xxxxxxx"
-        minlength="10"
-        maxlength="10"
-        pattern="079[0-9]{7}"/>
-   </div>
-   <button type="submit">Send OTP Code</button>
- </form>
+<div class="otp-container">
+  <h2>Request OTP</h2>
+  <p>Please enter your phone number to receive a one-time password.</p>
+  
+  <div class="form-group">
+    <label for="phone">Phone Number</label>
+    <input 
+      type="text" 
+      id="phone" 
+      [(ngModel)]="phone" 
+      placeholder="e.g., +1234567890" 
+      autocomplete="tel" />
+  </div>
+
+  <button class="primary-btn" (click)="requestOtp(phone)">Send OTP</button>
 </div>

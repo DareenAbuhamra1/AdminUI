@@ -35,4 +35,9 @@ export class Dashboard {
   goToOrderHistory(){
     this.router.navigate(['partner/order-history']);
   }
+
+  logout(): void {
+    localStorage.clear();
+    this.router.navigate(['/']);
+  }
 }

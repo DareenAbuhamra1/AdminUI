@@ -1,0 +1,4 @@
+.active-link {
+  background-color: rgba(0, 0, 0, 0.05);
+  color: #3f51b5; /* Or matching your primary theme color */
+}

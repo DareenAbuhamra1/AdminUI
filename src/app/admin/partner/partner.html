@@ -1,0 +1,84 @@
+<div class="admin-partner-container">
+  <h2>Manage Partners</h2>
+
+  <!-- 2. Create Partner Section -->
+  <div class="action-section">
+    <h3>Create New Partner</h3>
+    
+    <!-- Form grid for creating a new partner -->
+    <div class="form-grid">
+      <div>
+        <h4>Personal & Business Details</h4>
+        <input type="text" [(ngModel)]="newPartner.firstName" placeholder="First Name" />
+        <input type="text" [(ngModel)]="newPartner.lastName" placeholder="Last Name" />
+        <input type="email" [(ngModel)]="newPartner.email" placeholder="Email" />
+        <input type="text" [(ngModel)]="newPartner.phone" placeholder="Phone" />
+        <input type="date" [(ngModel)]="newPartner.dateOfBirth" placeholder="Date of Birth" />
+        
+        <input type="text" [(ngModel)]="newPartner.name" placeholder="Business Name" />
+        <input type="text" [(ngModel)]="newPartner.registrationNo" placeholder="Registration No" />
+        <input type="number" [(ngModel)]="newPartner.commissionRate" placeholder="Commission Rate" />
+        <div class="select-group">
+          <label>Parent Store</label>
+          <select [(ngModel)]="newPartner.parentStoreId">
+            <option [ngValue]="null">-- No Parent Store --</option>
+            <option *ngFor="let p of partners" [ngValue]="p.id">
+              {{ p.name }}
+            </option>
+          </select>
+        </div>
+        <input type="number" [(ngModel)]="newPartner.deliveryRuleId" placeholder="Delivery Rule ID" />
+      </div>
+
+      <div>
+        <h4>Location Details</h4>
+        <div class="select-group">
+          <label>Country</label>
+          <select [(ngModel)]="newPartner.country">
+            <option [ngValue]="null" disabled>Select Country</option>
+            <option [ngValue]="1">Jordan</option>
+          </select>
+        </div>
+        
+        <div class="select-group">
+          <label>City</label>
+          <select [(ngModel)]="newPartner.city">
+            <option [ngValue]="null" disabled>Select City</option>
+            <option [ngValue]="1">Amman</option>
+          </select>
+        </div>
+        <input type="text" [(ngModel)]="newPartner.area" placeholder="Area" />
+        <input type="text" [(ngModel)]="newPartner.street" placeholder="Street" />
+        <input type="number" [(ngModel)]="newPartner.latitude" placeholder="Latitude" />
+        <input type="number" [(ngModel)]="newPartner.longitude" placeholder="Longitude" />
+      </div>
+    </div>
+
+    <button (click)="createPartner()">Create Partner</button>
+  </div>
+
+  <hr />
+
+  <!-- 3. Upload Menu Section -->
+  <div class="action-section">
+    <h3>Upload Menu (Excel)</h3>
+    <div class="upload-controls">
+      
+      <div class="select-group">
+        <label>Target Partner</label>
+        <select [(ngModel)]="selectedPartnerId">
+          <option [ngValue]="null" disabled>Select a Partner</option>
+          <option *ngFor="let partner of partners" [ngValue]="partner.id">
+            {{ partner.name }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Restrict file input to Excel files -->
+      <input type="file" (change)="onFileSelected($event)" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
+      
+      <button (click)="uploadMenu()">Upload Menu</button>
+    </div>
+  </div>
+
+</div>
